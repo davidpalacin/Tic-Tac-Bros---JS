@@ -26,7 +26,10 @@ body{
     width: calc(100% / 3);
     cursor: pointer;
 }
-
+.info-turno{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
 @media(min-width: 524px){
     .tictac-grid {
         width: 500px;
