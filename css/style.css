@@ -1,12 +1,42 @@
+body{
+    background-color: rgb(187, 187, 187);
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
 .tictac-grid{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-self: center;
     width: 100%;
-    background-color: rgb(150, 246, 255);
+    height: 100vw;
+    background-color: rgb(186, 255, 121);
 }
 .tictac-grid-row{
     display: flex;
     width: 100%;
+    height: calc(100% / 3);
+}
+.tictac-grid-row-field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
+    width: calc(100% / 3);
+    cursor: pointer;
+}
+
+@media(min-width: 524px){
+    .tictac-grid {
+        width: 500px;
+        height: 500px;
+    }
+}
+
+@media(min-width: 780px) {
+    .tictac-grid {
+        width: 550px;
+        height: 550px;
+    }
 }
