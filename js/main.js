@@ -4,9 +4,8 @@ let tablero = [
   [0, 0, 0],
 ];
 let players = ["Player 1", "Player 2"];
-let turno = players[0];
-let infoTurno = document.createTextNode(players[0]);
-document.getElementById("turno").appendChild(infoTurno);
+let turn = players[0];
+document.getElementById("nombreJugador").innerHTML = turn;
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
 let fields = document.getElementsByClassName("tictac-grid-row-field");
@@ -15,42 +14,47 @@ for (let i = 0; i < fields.length; i++) {
   fields[i].setAttribute("onclick", "addPiece(event)");
 }
 
-// AÑADIR FICHA SEGUN EL TURNO
+// AÑADIR FICHA SI LA CASILLA ESTÁ VACÍA, Y PONE FICHA SEGÚN AL JUGADOR QUE LE TOQUE
 function addPiece(event) {
-  if (isFieldEmpty(event)) {
-    if(turno == players[0]){
-      console.log("Turno jugador 1");
-      let pieceX = document.createTextNode("X");
+  if (!document.getElementById(event.target.id).hasChildNodes()) {
+    if (turn === players[0]) {
+      let pieceX = document.createElement("img");
+      pieceX.src = "../assets/img/pieceX.png";
+      pieceX.alt = "ficha X";
+      pieceX.className = "ficha";
       document.getElementById(event.target.id).appendChild(pieceX);
+    } else {
+      let pieceO = document.createElement("img");
+      pieceO.src = "../assets/img/pieceO.png";
+      pieceO.alt = "ficha O";
+      pieceO.className = "ficha";
+      document.getElementById(event.target.id).appendChild(pieceO);
     }
-    // else{
-    //   let pieceO = document.createTextNode("O");
-    //   document.getElementById(event.target.id).appendChild(pieceO);
-    // }
-    changeTurn(turno);
+    // Cambia lavariable turno
+    turn = changeTurn(turn);
+  }
+  // Miramos después de colocar la ficha si ahora el tablero sigue teniendo huecos vacíos o no
+  if(isGridFull()){
+    document.getElementById("nombreJugador").innerHTML = "EMPATE";
   }
 }
 
-// COMPRUEBA Y DEVUELVE BOOLEANO SEGUN SI LA CASILLA ESTÁ VACIA
-function isFieldEmpty(event) {
-  if (document.getElementById(event.target.id).hasChildNodes()) {
-    return false;
+function changeTurn(turn) {
+  if (turn === players[0]) {
+    turn = players[1];
+    document.getElementById("nombreJugador").innerHTML = turn;
+  } else {
+    turn = players[0];
+    document.getElementById("nombreJugador").innerHTML = turn;
+  }
+  return turn;
+}
+
+function isGridFull(){
+  for (let i = 0; i < fields.length; i++) {
+    if(!document.getElementById(fields[i].id).hasChildNodes()){
+      return false;
+    }
   }
   return true;
-}
-function changeTurn(turno) {
-  console.log("Se intenta cambiar el turno de " + turno);
-  if (turno === players[0]) {
-    console.log("confirmado el turno es de " + turno);
-    let updatedTurn = document.createTextNode(players[1]);
-    console.log("El turno nuevo seria de " + players[1]);
-    console.log(document.getElementById("turno"));
-    // let element = document.getElementById("turno").children[0];
-    // element.replaceChild(updatedTurn, element.childNodes[0]);
-  }
-  //  else {
-  //   const updatedTurn = document.createTextNode(players[0]);
-  //   const element = document.getElementById("turno").children[0];
-  //   element.replaceChild(updatedTurn, element.childNodes[0]);
-  // }
 }
