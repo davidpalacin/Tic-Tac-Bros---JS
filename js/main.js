@@ -18,16 +18,10 @@ for (let i = 0; i < fields.length; i++) {
 function addPiece(event) {
   if (!document.getElementById(event.target.id).hasChildNodes()) {
     if (turn === players[0]) {
-      let pieceX = document.createElement("img");
-      pieceX.src = "../assets/img/pieceX.png";
-      pieceX.alt = "ficha X";
-      pieceX.className = "ficha";
+      let pieceX = createPiece("X");
       document.getElementById(event.target.id).appendChild(pieceX);
     } else {
-      let pieceO = document.createElement("img");
-      pieceO.src = "../assets/img/pieceO.png";
-      pieceO.alt = "ficha O";
-      pieceO.className = "ficha";
+      let pieceO = createPiece("O");
       document.getElementById(event.target.id).appendChild(pieceO);
     }
     // Cambia lavariable turno
@@ -37,6 +31,7 @@ function addPiece(event) {
   if(isGridFull()){
     document.getElementById("nombreJugador").innerHTML = "EMPATE";
   }
+  checkVictory();
 }
 
 function changeTurn(turn) {
@@ -57,4 +52,28 @@ function isGridFull(){
     }
   }
   return true;
+}
+// Crea las piezas recibiendo si tiene que ser X o O 
+function createPiece(typePiece){
+  if(typePiece === "X"){
+    let pieceX = document.createElement("img");
+    pieceX.src = "../assets/img/pieceX.png";
+    pieceX.alt = "ficha X";
+    pieceX.className = "ficha";
+    pieceX.dataset.team = 'X';
+    return pieceX;
+  }else if (typePiece === "O") {
+    let pieceO = document.createElement("img");
+    pieceO.src = "../assets/img/pieceO.png";
+    pieceO.alt = "ficha X";
+    pieceO.className = "ficha";
+    pieceO.dataset.team = 'O';
+
+    return pieceO;
+  }
+}
+
+// Comprobar la victoria
+function checkVictory(){
+  console.log("A ver si alguien ha ganado...");
 }
