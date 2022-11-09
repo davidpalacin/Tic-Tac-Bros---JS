@@ -56,16 +56,17 @@ function isGridFull(){
 // Crea las piezas recibiendo si tiene que ser X o O 
 function createPiece(typePiece){
   if(typePiece === "X"){
-    let pieceX = document.createElement("img");
-    pieceX.src = "../assets/img/pieceX.png";
+    let pieceX = document.createElement("span");
+    pieceX.innerText = "X";
     pieceX.alt = "ficha X";
     pieceX.className = "ficha";
     pieceX.dataset.team = 'X';
+
     return pieceX;
   }else if (typePiece === "O") {
-    let pieceO = document.createElement("img");
-    pieceO.src = "../assets/img/pieceO.png";
-    pieceO.alt = "ficha X";
+    let pieceO = document.createElement("span");
+    pieceO.innerText = "O";
+    pieceO.alt = "ficha O";
     pieceO.className = "ficha";
     pieceO.dataset.team = 'O';
 
