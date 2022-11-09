@@ -1,4 +1,4 @@
-let tablero = [
+let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
@@ -20,18 +20,22 @@ function addPiece(event) {
     if (turn === players[0]) {
       let pieceX = createPiece("X");
       document.getElementById(event.target.id).appendChild(pieceX);
+      let field = event.target.id.split("field").pop();
+      updateGridGame(field, "X");
     } else {
       let pieceO = createPiece("O");
       document.getElementById(event.target.id).appendChild(pieceO);
+      let field = event.target.id.split("field").pop();
+      updateGridGame(field, "O");
     }
-    // Cambia lavariable turno
+    // Cambia la variable turno
     turn = changeTurn(turn);
   }
-  // Miramos después de colocar la ficha si ahora el tablero sigue teniendo huecos vacíos o no
+  // Miramos después de colocar la ficha si ahora el gridGame sigue teniendo huecos vacíos o no
   if(isGridFull()){
     document.getElementById("nombreJugador").innerHTML = "EMPATE";
   }
-  checkVictory();
+  checkVictory(gridGame);
 }
 
 function changeTurn(turn) {
@@ -73,8 +77,60 @@ function createPiece(typePiece){
     return pieceO;
   }
 }
+function updateGridGame(field, team){
+  if(team == "X"){
+    if (field >= 0 && field <= 2) {
+      gridGame[0][field] = "X";
+    } else if (field >= 3 && field <= 5) {
+      if(field == 3){
+        gridGame[1][0] = "X";
+      }
+      if (field == 4) {
+        gridGame[1][1] = "X";
+      }
+      if (field == 5) {
+        gridGame[1][2] = "X";
+      }
+    } else if (field >= 6 && field <= 8) {
+      if (field == 6) {
+        gridGame[2][0] = "X";
+      }
+      if (field == 7) {
+        gridGame[2][1] = "X";
+      }
+      if (field == 8) {
+        gridGame[2][2] = "X";
+      }
+    }
+  }else if(team == "O"){
+    if (field >= 0 && field <= 2) {
+      gridGame[0][field] = "O";
+    } else if (field >= 3 && field <= 5) {
+      if (field == 3) {
+        gridGame[1][0] = "O";
+      }
+      if (field == 4) {
+        gridGame[1][1] = "O";
+      }
+      if (field == 5) {
+        gridGame[1][2] = "O";
+      }
+    } else if (field >= 6 && field <= 8) {
+      if (field == 6) {
+        gridGame[2][0] = "O";
+      }
+      if (field == 7) {
+        gridGame[2][1] = "O";
+      }
+      if (field == 8) {
+        gridGame[2][2] = "O";
+      }
+    }
+  }
+  console.log(gridGame);
+}
 
 // Comprobar la victoria
-function checkVictory(){
-  console.log("A ver si alguien ha ganado...");
+function checkVictory(gridGame){
+
 }
