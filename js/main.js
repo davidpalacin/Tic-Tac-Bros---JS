@@ -3,6 +3,16 @@ let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
 ];
+const winningCombination = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 let players = ["Player 1", "Player 2"];
 let turn = players[0];
 document.getElementById("nombreJugador").innerHTML = turn;
@@ -32,105 +42,79 @@ function addPiece(event) {
     turn = changeTurn(turn);
   }
   // Miramos después de colocar la ficha si ahora el gridGame sigue teniendo huecos vacíos o no
-  if(isGridFull()){
+  if (isGridFull()) {
     document.getElementById("nombreJugador").innerHTML = "EMPATE";
   }
-  checkVictory(gridGame);
 }
 
 function changeTurn(turn) {
-  if (turn === players[0]) {
-    turn = players[1];
-    document.getElementById("nombreJugador").innerHTML = turn;
-  } else {
-    turn = players[0];
-    document.getElementById("nombreJugador").innerHTML = turn;
-  }
+  turn == players[0] ? (turn = players[1]) : (turn = players[0]);
+  document.getElementById("nombreJugador").innerHTML = turn;
   return turn;
 }
 
-function isGridFull(){
+function isGridFull() {
   for (let i = 0; i < fields.length; i++) {
-    if(!document.getElementById(fields[i].id).hasChildNodes()){
+    if (!document.getElementById(fields[i].id).hasChildNodes()) {
       return false;
     }
   }
   return true;
 }
-// Crea las piezas recibiendo si tiene que ser X o O 
-function createPiece(typePiece){
-  if(typePiece === "X"){
+// Crea las piezas recibiendo si tiene que ser X o O
+function createPiece(typePiece) {
+  if (typePiece === "X") {
     let pieceX = document.createElement("span");
     pieceX.innerText = "X";
     pieceX.alt = "ficha X";
     pieceX.className = "ficha";
-    pieceX.dataset.team = 'X';
+    pieceX.dataset.team = "X";
 
     return pieceX;
-  }else if (typePiece === "O") {
+  } else if (typePiece === "O") {
     let pieceO = document.createElement("span");
     pieceO.innerText = "O";
     pieceO.alt = "ficha O";
     pieceO.className = "ficha";
-    pieceO.dataset.team = 'O';
+    pieceO.dataset.team = "O";
 
     return pieceO;
   }
 }
-function updateGridGame(field, team){
-  if(team == "X"){
-    if (field >= 0 && field <= 2) {
-      gridGame[0][field] = "X";
-    } else if (field >= 3 && field <= 5) {
-      if(field == 3){
-        gridGame[1][0] = "X";
-      }
-      if (field == 4) {
-        gridGame[1][1] = "X";
-      }
-      if (field == 5) {
-        gridGame[1][2] = "X";
-      }
-    } else if (field >= 6 && field <= 8) {
-      if (field == 6) {
-        gridGame[2][0] = "X";
-      }
-      if (field == 7) {
-        gridGame[2][1] = "X";
-      }
-      if (field == 8) {
-        gridGame[2][2] = "X";
-      }
+function updateGridGame(field, team) {
+  if (field >= 0 && field <= 2) {
+    gridGame[0][field] = team;
+  } else if (field >= 3 && field <= 5) {
+    if (field == 3) {
+      gridGame[1][0] = team;
     }
-  }else if(team == "O"){
-    if (field >= 0 && field <= 2) {
-      gridGame[0][field] = "O";
-    } else if (field >= 3 && field <= 5) {
-      if (field == 3) {
-        gridGame[1][0] = "O";
-      }
-      if (field == 4) {
-        gridGame[1][1] = "O";
-      }
-      if (field == 5) {
-        gridGame[1][2] = "O";
-      }
-    } else if (field >= 6 && field <= 8) {
-      if (field == 6) {
-        gridGame[2][0] = "O";
-      }
-      if (field == 7) {
-        gridGame[2][1] = "O";
-      }
-      if (field == 8) {
-        gridGame[2][2] = "O";
-      }
+    if (field == 4) {
+      gridGame[1][1] = team;
+    }
+    if (field == 5) {
+      gridGame[1][2] = team;
+    }
+  } else if (field >= 6 && field <= 8) {
+    if (field == 6) {
+      gridGame[2][0] = team;
+    }
+    if (field == 7) {
+      gridGame[2][1] = team;
+    }
+    if (field == 8) {
+      gridGame[2][2] = team;
     }
   }
   console.log(gridGame);
+  checkVictory(gridGame, team);
 }
 
 // Comprobar la victoria
-function checkVictory(gridGame){
+function checkVictory(gridGame, team) {
 
+  gridGame.forEach(row => {
+    if (row.every(piece => piece === team)) {
+      console.log("victoria horizontal en la " + gridGame.indexOf(row) + "  fila de " + team);
+    }
+  });
 }
