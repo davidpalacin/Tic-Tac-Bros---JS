@@ -22,9 +22,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: 2px solid #d13e3e;
     width: calc(100% / 3);
     cursor: pointer;
+    background-color: #323232;
 }
 .info-turno{
     color: white;
@@ -40,6 +41,7 @@ body{
     font-size: 50px;
     font-weight: bold;
     text-align: center;
+    color: yellow;
 }
 @media(min-width: 524px){
     .container{
@@ -55,7 +57,7 @@ body{
     }
 }
 
-@media(min-width: 780px) {
+@media(min-width: 1000px) {
     .tictac-grid {
         width: 550px;
         height: 550px;

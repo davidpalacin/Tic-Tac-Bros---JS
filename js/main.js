@@ -1,14 +1,23 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-const gridGame = [
+let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
 ];
-const players = ['Player 1', 'Player 2'];
+let players = [
+  {
+    nombre: "Player 1",
+    ficha: "X"
+  },
+  {
+    nombre: "Player 2",
+    ficha: "O"
+  }
+];
 let turn = players[0];
-document.getElementById('nombreJugador').innerHTML = turn;
+document.getElementById('nombreJugador').innerHTML = turn.nombre;
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
 const fields = document.getElementsByClassName('tictac-grid-row-field');
@@ -20,18 +29,13 @@ for (let i = 0; i < fields.length; i++) {
 // AÑADIR FICHA SI LA CASILLA ESTÁ VACÍA, Y PONE FICHA SEGÚN AL JUGADOR QUE LE TOQUE
 function addPiece(event) {
   if (!document.getElementById(event.target.id).hasChildNodes()) {
-    if (turn === players[0]) {
-      const pieceX = createPiece('X');
-      document.getElementById(event.target.id).appendChild(pieceX);
-      const field = event.target.id.split('field').pop();
-      updateGridGame(field, 'X');
-    } else {
-      const pieceO = createPiece('O');
-      document.getElementById(event.target.id).appendChild(pieceO);
-      const field = event.target.id.split('field').pop();
-      updateGridGame(field, 'O');
+    const piece = createPiece(turn);
+    document.getElementById(event.target.id).appendChild(piece);
+    const field = event.target.id.split("field").pop();
+    updateGridGame(field, turn.ficha);
+    if (checkVictory(gridGame, turn.ficha)) {
+      alert("si");
     }
-    // Cambia la variable turno
     turn = changeTurn(turn);
   }
   // Miramos después de colocar la ficha si ahora el gridGame sigue teniendo huecos vacíos o no
@@ -42,7 +46,7 @@ function addPiece(event) {
 
 function changeTurn(turn) {
   turn == players[0] ? (turn = players[1]) : (turn = players[0]);
-  document.getElementById('nombreJugador').innerHTML = turn;
+  document.getElementById('nombreJugador').innerHTML = turn.nombre;
   return turn;
 }
 
@@ -55,25 +59,26 @@ function isGridFull() {
   return true;
 }
 // Crea las piezas recibiendo si tiene que ser X o O
-function createPiece(typePiece) {
-  if (typePiece === 'X') {
-    const pieceX = document.createElement('span');
-    pieceX.innerText = 'X';
-    pieceX.alt = 'ficha X';
-    pieceX.className = 'ficha';
-    pieceX.dataset.team = 'X';
+function createPiece(turn) {
+  if (turn === players[0]) {
+    const piece = document.createElement('span');
+    piece.innerText = 'X';
+    piece.alt = 'ficha X';
+    piece.className = 'ficha';
+    piece.dataset.team = 'X';
 
-    return pieceX;
-  } else if (typePiece === 'O') {
-    const pieceO = document.createElement('span');
-    pieceO.innerText = 'O';
-    pieceO.alt = 'ficha O';
-    pieceO.className = 'ficha';
-    pieceO.dataset.team = 'O';
+    return piece;
+  } else {
+    const piece = document.createElement('span');
+    piece.innerText = 'O';
+    piece.alt = 'ficha O';
+    piece.className = 'ficha';
+    piece.dataset.team = 'O';
 
-    return pieceO;
+    return piece;
   }
 }
+
 function updateGridGame(field, team) {
   if (field >= 0 && field <= 2) {
     gridGame[0][field] = team;
@@ -98,8 +103,6 @@ function updateGridGame(field, team) {
       gridGame[2][2] = team;
     }
   }
-  console.log(gridGame);
-  checkVictory(gridGame, team);
 }
 
 // Comprobar la victoria
@@ -107,8 +110,8 @@ function checkVictory(gridGame, team) {
   // Victorias en horizontal de team:
   gridGame.forEach((row) => {
     if (row.every((piece) => piece === team)) {
-      console.log('victoria horizontal en la ' + gridGame.indexOf(row) + '  fila de ' + team);
-      document.getElementById('turno').innerHTML = 'Victoria de ' + team;
+      document.getElementById('turno').innerHTML = 'Victoria de ' + turn;
+      return true;
     }
   });
   // Victorias en vertical y diagonal de team
@@ -117,30 +120,35 @@ function checkVictory(gridGame, team) {
     gridGame[1][0] == team &&
     gridGame[2][0] == team
   ) {
-    alert("Victoria vertical en primera columna de " + team);
+    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
+    return true;
   } else if (
     gridGame[0][1] == team &&
     gridGame[1][1] == team &&
     gridGame[2][1] == team
   ) {
-    alert("Victoria vertical en la segunda columna de " + team);
+    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
+    return true;
   } else if (
     gridGame[0][2] == team &&
     gridGame[1][2] == team &&
     gridGame[2][2] == team
   ) {
-    alert("Victoria vertical en la tercera columna de " + team);
+    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
+    return true;
   } else if (
     gridGame[0][0] == team &&
     gridGame[1][1] == team &&
     gridGame[2][2] == team
   ) {
-    alert("Victoria en diagonal de " + team);
+    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
+    return true;
   } else if (
     gridGame[0][2] == team &&
     gridGame[1][1] == team &&
     gridGame[2][0] == team
   ) {
-    alert("Victoria en diagonal de " + team);
+    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
+    return true;
   }
 }
