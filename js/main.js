@@ -17,7 +17,7 @@ let players = [
   }
 ];
 let turn = players[0];
-document.getElementById('nombreJugador').innerHTML = turn.nombre;
+document.getElementById('turno').innerHTML = 'Turno de: ' + turn.nombre;
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
 const fields = document.getElementsByClassName('tictac-grid-row-field');
@@ -33,20 +33,23 @@ function addPiece(event) {
     document.getElementById(event.target.id).appendChild(piece);
     const field = event.target.id.split("field").pop();
     updateGridGame(field, turn.ficha);
-    if (checkVictory(gridGame, turn.ficha)) {
-      alert("si");
+    let isWin = checkVictory(gridGame, turn.ficha);
+    if (isWin) {
+      alert("Ha ganado " + turn.nombre)
+    }else{
+      turn = changeTurn(turn);
     }
-    turn = changeTurn(turn);
+    
   }
   // Miramos después de colocar la ficha si ahora el gridGame sigue teniendo huecos vacíos o no
   if (isGridFull()) {
-    document.getElementById('nombreJugador').innerHTML = 'EMPATE';
+    document.getElementById("turno").innerHTML = 'EMPATE';
   }
 }
 
 function changeTurn(turn) {
   turn == players[0] ? (turn = players[1]) : (turn = players[0]);
-  document.getElementById('nombreJugador').innerHTML = turn.nombre;
+  document.getElementById("turno").innerHTML = "Turno de: " + turn.nombre;
   return turn;
 }
 
@@ -107,11 +110,11 @@ function updateGridGame(field, team) {
 
 // Comprobar la victoria
 function checkVictory(gridGame, team) {
+  let isWin = false;
   // Victorias en horizontal de team:
   gridGame.forEach((row) => {
-    if (row.every((piece) => piece === team)) {
-      document.getElementById('turno').innerHTML = 'Victoria de ' + turn;
-      return true;
+    if (row.every((thisPiece) => thisPiece === team)) {
+      isWin = true;
     }
   });
   // Victorias en vertical y diagonal de team
@@ -120,35 +123,32 @@ function checkVictory(gridGame, team) {
     gridGame[1][0] == team &&
     gridGame[2][0] == team
   ) {
-    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
-    return true;
+    isWin = true;
   } else if (
     gridGame[0][1] == team &&
     gridGame[1][1] == team &&
     gridGame[2][1] == team
   ) {
-    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
-    return true;
+    isWin = true;
   } else if (
     gridGame[0][2] == team &&
     gridGame[1][2] == team &&
     gridGame[2][2] == team
   ) {
-    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
-    return true;
+    isWin = true;
   } else if (
     gridGame[0][0] == team &&
     gridGame[1][1] == team &&
     gridGame[2][2] == team
   ) {
-    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
-    return true;
+    isWin = true;
   } else if (
     gridGame[0][2] == team &&
     gridGame[1][1] == team &&
     gridGame[2][0] == team
   ) {
-    document.getElementById("turno").innerHTML = "Victoria de " + turn.nombre;
-    return true;
+    isWin = true;
   }
+
+  return isWin;
 }
