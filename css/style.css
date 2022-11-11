@@ -1,9 +1,63 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: supermario;
+    src: url(../assets/fonts/SuperMario256.ttf);
+}
 body{
     background-color: rgb(187, 187, 187);
+}
+.flex{
+    display: flex;
 }
 .container{
     display: flex;
     flex-direction: column;
+    width: 100vw;
+}
+#win-screen h1{
+    margin-top: 15px;
+}
+#win-screen{
+    /* Estilo texto */
+    font-family: supermario;
+    color: white;
+    /* Estilo de la caja */
+    display:none;
+    border: 4px solid white;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #c32828;
+    height: 100%;
+    width: 100%;
+    font-size: 10px;
+    position: absolute;
+}
+.win-screen-button{
+    font-family: supermario;
+    width: calc(100% - 30px);
+    border-radius: 50px;
+    padding: 5px 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#replay{
+    margin-top: auto;
+}
+#exit{
+    margin-bottom: 25px;
+}
+#playerImage{
+    background-image: url('../assets/img/mario.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 15px 0;
+    width: 65%;
+    height: 100%;
 }
 .tictac-grid{
     display: flex;
@@ -31,7 +85,7 @@ body{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 5px;
-    margin-top: 0;
+    margin-top: 10px;
 }
 .info-turno, #nombreJugador{
     letter-spacing: 7px;
@@ -61,5 +115,9 @@ body{
     .tictac-grid {
         width: 550px;
         height: 550px;
+    }
+    #win-screen {
+        /* Estilo texto */
+        font-size: inherit;
     }
 }

@@ -6,10 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <div id="win-screen">
+        <h1 id="victory-text"></h1>
+        <div id="playerImage"></div>
+        <button onclick="reloadPage()" id="replay" class="win-screen-button">VOLVER A JUGAR</button>
+        <button id="exit" class="win-screen-button">SALIR</button>
+    </div>
     <main class="container">
         <h3 id="turno" class="info-turno"></h3>
         <div class="tictac-grid">
