@@ -12,14 +12,16 @@ let players = [
     nombre: "Mario",
     ficha:
       "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/redchampi.png",
-    imagen: "../assets/img/mario.svg",
+    imagen:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/mario.svg",
     color: "#c32828",
   },
   {
     nombre: "Luigi",
     ficha:
       "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/greenchampi.png",
-    imagen: "../assets/img/luigi.svg",
+    imagen:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/luigi.svg",
     color: "#4fc300",
   },
 ];
