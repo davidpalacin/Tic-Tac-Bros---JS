@@ -1,12 +1,9 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable require-jsdoc */
-/* eslint-disable max-len */
-let miContainer = document.getElementsByClassName("container");
 let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
 ];
+let miContainer = document.getElementsByClassName("container");
 let players = [
   {
     nombre: "Mario",
@@ -152,12 +149,14 @@ function showWiningScreen(turn){
   document.getElementById("win-screen").style.backgroundColor = turn.color;
   document.getElementById('playerImage').style.backgroundImage = `url("${turn.imagen}")`;
   document.getElementById('win-screen').style.display = 'flex';
-  miContainer[0].style.display = 'none';
+  miContainer[0].style.display = "none";
 }
 function showReplayScreen(){
   document.getElementById("victory-text").innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
   document.getElementById('replay-screen').style.display = 'flex';
 }
+
+// Para comenzar una partida nueva, reestablecer el tablero a vacío, esconder la pantalla de victoria, mostrar el container de nuevo, establecer un turno a un jugador aleatorio.
 function replay(){
   for (let i = 0; i < fields.length; i++) {
     fields[i].innerHTML = '';
@@ -168,15 +167,12 @@ function replay(){
     [0, 0, 0],
   ];
   document.getElementById("win-screen").style.display = "none";
-  miContainer[0].style.display = "flex";
+  // miContainer[0].style.display = "flex";
   turn = players[Math.round(Math.random())];
   document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   changeGameColor(turn);
 }
 
 function changeGameColor(turn){
-  turn.nombre == "Mario"
-    ? (document.body.style.backgroundColor = "#d91616")
-    : (document.body.style.backgroundColor = "#35cd35");
-
+  document.body.style.backgroundColor = turn.color;
 }
