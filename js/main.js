@@ -36,16 +36,14 @@ function addPiece(event) {
     const field = event.target.id.split("field").pop();
     updateGridGame(field, turn.ficha);
     if (checkVictory(gridGame, turn)) {
-      alert("Ha ganado " + turn.nombre);
       showWiningScreen(turn);
+    }else if(isGridFull()){
+      alert('Empate');
     }else{
       turn = changeTurn(turn);
     }
   }
-  // Miramos después de colocar la ficha si ahora el gridGame sigue teniendo huecos vacíos o no
-  if (isGridFull()) {
-    document.getElementById("turno").innerHTML = 'EMPATE';
-  }
+  
 }
 
 function changeTurn(turn) {
@@ -69,7 +67,6 @@ function createPiece(turn) {
     piece.innerText = 'X';
     piece.alt = 'ficha X';
     piece.className = 'ficha';
-    piece.dataset.team = 'X';
 
     return piece;
   } else {
@@ -77,7 +74,6 @@ function createPiece(turn) {
     piece.innerText = 'O';
     piece.alt = 'ficha O';
     piece.className = 'ficha';
-    piece.dataset.team = 'O';
 
     return piece;
   }
