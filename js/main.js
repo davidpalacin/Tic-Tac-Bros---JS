@@ -10,15 +10,17 @@ let gridGame = [
 let players = [
   {
     nombre: "Mario",
-    ficha: "../assets/img/redchampi.png",
+    ficha:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/redchampi.png",
     imagen: "../assets/img/mario.svg",
-    color: "#c32828"
+    color: "#c32828",
   },
   {
     nombre: "Luigi",
-    ficha: "../assets/img/greenchampi.png",
+    ficha:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/greenchampi.png",
     imagen: "../assets/img/luigi.svg",
-    color: "#4fc300"
+    color: "#4fc300",
   },
 ];
 let btnReplay = document.getElementById('replay');
