@@ -18,6 +18,15 @@ body{
     flex-direction: column;
     width: 100vw;
 }
+.ficha{
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+.ficha img{
+    width: 50%;
+    height: auto;
+}
 #win-screen h1{
     margin-top: 15px;
 }
@@ -52,12 +61,13 @@ body{
     margin-bottom: 25px;
 }
 #playerImage{
+    margin: auto 0;
     background-image: url('../assets/img/mario.svg');
     background-repeat: no-repeat;
     background-position: center;
-    margin: 15px 0;
-    width: 65%;
-    height: 100%;
+    margin: auto 0;
+    width: 100%;
+    height: 50%;
 }
 .tictac-grid{
     display: flex;
@@ -90,13 +100,6 @@ body{
 .info-turno, #nombreJugador{
     letter-spacing: 7px;
 }
-.ficha{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    color: yellow;
-}
 @media(min-width: 524px){
     .container{
         width: fit-content;
@@ -105,9 +108,6 @@ body{
     .tictac-grid {
         width: 500px;
         height: 500px;
-    }
-    .ficha{
-        width: calc(100% - 100px);
     }
 }
 

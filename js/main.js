@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
+let miContainer = document.getElementsByClassName("container");
 let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
@@ -8,17 +9,21 @@ let gridGame = [
 ];
 let players = [
   {
-    nombre: "Player 1",
-    ficha: "X"
+    nombre: "Mario",
+    ficha: "../assets/img/redchampi.png",
+    imagen: "../assets/img/mario.svg",
+    color: "#c32828"
   },
   {
-    nombre: "Player 2",
-    ficha: "O"
-  }
+    nombre: "Luigi",
+    ficha: "../assets/img/greenchampi.png",
+    imagen: "../assets/img/luigi.svg",
+    color: "#4fc300"
+  },
 ];
 let btnReplay = document.getElementById('replay');
 let btnExit = document.getElementById("exit"); 
-let turn = players[0];
+let turn = players[Math.round(Math.random())];
 document.getElementById('turno').innerHTML = 'Turno de: ' + turn.nombre;
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
@@ -38,7 +43,7 @@ function addPiece(event) {
     if (checkVictory(gridGame, turn)) {
       showWiningScreen(turn);
     }else if(isGridFull()){
-      alert('Empate');
+      showReplayScreen();
     }else{
       turn = changeTurn(turn);
     }
@@ -62,21 +67,10 @@ function isGridFull() {
 }
 // Crea las piezas recibiendo si tiene que ser X o O
 function createPiece(turn) {
-  if (turn === players[0]) {
-    const piece = document.createElement('span');
-    piece.innerText = 'X';
-    piece.alt = 'ficha X';
-    piece.className = 'ficha';
-
-    return piece;
-  } else {
-    const piece = document.createElement('span');
-    piece.innerText = 'O';
-    piece.alt = 'ficha O';
-    piece.className = 'ficha';
-
-    return piece;
-  }
+  const piece = document.createElement('span');
+  piece.className = 'ficha';
+  piece.innerHTML = "<img alt='ficha del jugador' src='"+turn.ficha+"'/>";
+  return piece;
 }
 
 function updateGridGame(field, team) {
@@ -146,16 +140,31 @@ function checkVictory(gridGame, turn) {
   ) {
     isWin = true;
   }
-
   return isWin;
 }
 
 function showWiningScreen(turn){
-  document.getElementById("victory-text").innerHTML = 'Enhorabuena ' + turn.nombre;
+  document.getElementById("victory-text").innerHTML = '¡Enhorabuena ' + turn.nombre + '!';
+  document.getElementById("win-screen").style.backgroundColor = turn.color;
   document.getElementById('win-screen').style.display = 'flex';
-  let miContainer = document.getElementsByClassName('container');
+  document.getElementById('playerImage').style.backgroundImage = 'url(' + turn.imagen + ')';
   miContainer[0].style.display = 'none';
 }
-function reloadPage(){
-  location.reload();
+function showReplayScreen(){
+  document.getElementById("victory-text").innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
+  document.getElementById('replay-screen').style.display = 'flex';
+}
+function replay(){
+  for (let i = 0; i < fields.length; i++) {
+    fields[i].innerHTML = '';
+  }
+  gridGame = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  document.getElementById("win-screen").style.display = "none";
+  miContainer[0].style.display = "flex";
+  turn = players[Math.round(Math.random())];
+  document.getElementById("turno").innerHTML = "Turno de: " + turn.nombre;
 }
