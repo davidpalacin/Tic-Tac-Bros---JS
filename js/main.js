@@ -171,6 +171,7 @@ function replay(){
   turn = players[Math.round(Math.random())];
   document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   changeGameColor(turn);
+  miContainer[0].style.display = "flex";
 }
 
 function changeGameColor(turn){
