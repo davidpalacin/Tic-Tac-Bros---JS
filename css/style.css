@@ -9,6 +9,7 @@
 }
 body{
     background-color: rgb(187, 187, 187);
+    transition: background-color .2s ease-in-out;
 }
 .flex{
     display: flex;
@@ -86,7 +87,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #d13e3e;
+    border: 2px solid white;
     width: calc(100% / 3);
     cursor: pointer;
     background-color: #323232;
@@ -96,6 +97,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 5px;
     margin-top: 10px;
+    text-align: center;
 }
 .info-turno, #nombreJugador{
     letter-spacing: 7px;

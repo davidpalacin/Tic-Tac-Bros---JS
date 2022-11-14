@@ -25,10 +25,9 @@ let players = [
     color: "#4fc300",
   },
 ];
-let btnReplay = document.getElementById('replay');
-let btnExit = document.getElementById("exit"); 
 let turn = players[Math.round(Math.random())];
-document.getElementById('turno').innerHTML = 'Turno de: ' + turn.nombre;
+document.getElementById('turno').innerHTML = `¡Es tu turno, ${turn.nombre}!`;
+changeGameColor(turn);
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
 const fields = document.getElementsByClassName('tictac-grid-row-field');
@@ -50,14 +49,14 @@ function addPiece(event) {
       showReplayScreen();
     }else{
       turn = changeTurn(turn);
+      changeGameColor(turn);
     }
   }
-  
 }
 
 function changeTurn(turn) {
   turn == players[0] ? (turn = players[1]) : (turn = players[0]);
-  document.getElementById("turno").innerHTML = "Turno de: " + turn.nombre;
+  document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   return turn;
 }
 
@@ -69,6 +68,7 @@ function isGridFull() {
   }
   return true;
 }
+
 // Crea las piezas recibiendo si tiene que ser X o O
 function createPiece(turn) {
   const piece = document.createElement('span');
@@ -148,10 +148,10 @@ function checkVictory(gridGame, turn) {
 }
 
 function showWiningScreen(turn){
-  document.getElementById("victory-text").innerHTML = '¡Enhorabuena ' + turn.nombre + '!';
+  document.getElementById("victory-text").innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
   document.getElementById("win-screen").style.backgroundColor = turn.color;
+  document.getElementById('playerImage').style.backgroundImage = `url("${turn.imagen}")`;
   document.getElementById('win-screen').style.display = 'flex';
-  document.getElementById('playerImage').style.backgroundImage = 'url(' + turn.imagen + ')';
   miContainer[0].style.display = 'none';
 }
 function showReplayScreen(){
@@ -170,5 +170,13 @@ function replay(){
   document.getElementById("win-screen").style.display = "none";
   miContainer[0].style.display = "flex";
   turn = players[Math.round(Math.random())];
-  document.getElementById("turno").innerHTML = "Turno de: " + turn.nombre;
+  document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
+  changeGameColor(turn);
+}
+
+function changeGameColor(turn){
+  turn.nombre == "Mario"
+    ? (document.body.style.backgroundColor = "#d91616")
+    : (document.body.style.backgroundColor = "#35cd35");
+
 }
