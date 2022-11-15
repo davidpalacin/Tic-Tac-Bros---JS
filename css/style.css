@@ -217,6 +217,7 @@ body {
         width: 500px;
         height: 500px;
     }
+    /* MENU DEL JUEGO */
 }
 
 @media(min-width: 1000px) {
@@ -229,4 +230,10 @@ body {
         /* Estilo texto */
         font-size: inherit;
     }
+    /* MENU DEL JUEGO */
+        .box-menu-buttons {
+            width: 50%;
+            align-self: center;
+            margin-bottom: 37px;
+        }
 }
