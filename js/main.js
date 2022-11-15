@@ -21,7 +21,14 @@ let players = [
       "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/luigi.svg",
     color: "#4fc300",
   },
+  {
+    nombre: "Bowser",
+    ficha: "../assets/img/bowsi.svg",
+    imagen: "../assets/img/bowser.svg",
+    color: "yellow",
+  }
 ];
+// Inicializar información al comenzar
 let turn = players[Math.round(Math.random())];
 document.getElementById('turno').innerHTML = `¡Es tu turno, ${turn.nombre}!`;
 changeGameColor(turn);
@@ -36,10 +43,11 @@ for (let i = 0; i < fields.length; i++) {
 // AÑADIR FICHA SI LA CASILLA ESTÁ VACÍA, Y PONE FICHA SEGÚN AL JUGADOR QUE LE TOQUE
 function addPiece(event) {
   if (!document.getElementById(event.target.id).hasChildNodes()) {
-    const piece = createPiece(turn);
+    const piece = createPiece(turn); // funcion que crea una ficha HTML
     document.getElementById(event.target.id).appendChild(piece);
     const field = event.target.id.split("field").pop();
-    updateGridGame(field, turn.ficha);
+    updateGridGame(field, turn.ficha); //actualizar matriz de la cuadrícula
+
     if (checkVictory(gridGame, turn)) {
       showWiningScreen(turn);
     }else if(isGridFull()){
@@ -151,9 +159,14 @@ function showWiningScreen(turn){
   document.getElementById('win-screen').style.display = 'flex';
   miContainer[0].style.display = "none";
 }
+
+// Es un empate
 function showReplayScreen(){
+  miContainer[0].style.display = "none";
   document.getElementById("victory-text").innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
-  document.getElementById('replay-screen').style.display = 'flex';
+  document.getElementById("win-screen").style.backgroundColor = "#abab16";
+  document.getElementById('playerImage').style.backgroundImage = `url('../assets/img/bowser.png')`;
+  document.getElementById('win-screen').style.display = 'flex';
 }
 
 // Para comenzar una partida nueva, reestablecer el tablero a vacío, esconder la pantalla de victoria, mostrar el container de nuevo, establecer un turno a un jugador aleatorio.
@@ -175,5 +188,5 @@ function replay(){
 }
 
 function changeGameColor(turn){
-  document.body.style.backgroundColor = turn.color;
+  miContainer[0].style.backgroundColor = turn.color;
 }

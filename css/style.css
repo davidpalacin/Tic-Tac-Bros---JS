@@ -1,42 +1,60 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 @font-face {
     font-family: supermario;
     src: url(../assets/fonts/SuperMario256.ttf);
 }
-body{
+
+body {
     background-color: rgb(187, 187, 187);
     transition: background-color .2s ease-in-out;
 }
-.flex{
+
+.flex {
     display: flex;
 }
-.container{
+
+.container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100vw;
+    height: 100vh;
 }
-.ficha{
+
+.ficha {
     text-align: center;
     width: 100%;
     height: auto;
 }
-.ficha img{
+
+.ficha img {
     width: 50%;
     height: auto;
 }
-#win-screen h1{
-    margin-top: 15px;
+.box-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
-#win-screen{
+
+#win-screen h1 {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#win-screen {
     /* Estilo texto */
     font-family: supermario;
     color: white;
     /* Estilo de la caja */
-    display:none;
+    display: none;
     border: 4px solid white;
     flex-direction: column;
     align-items: center;
@@ -47,7 +65,8 @@ body{
     font-size: 10px;
     position: absolute;
 }
-.win-screen-button{
+
+.win-screen-button {
     font-family: supermario;
     width: calc(100% - 30px);
     border-radius: 50px;
@@ -55,35 +74,41 @@ body{
     cursor: pointer;
     margin-bottom: 10px;
 }
-#replay{
+
+#replay {
     margin-top: auto;
 }
-#exit{
+
+#exit {
     margin-bottom: 25px;
 }
-#playerImage{
+
+#playerImage {
     margin: auto 0;
-    background-image: url('../assets/img/mario.svg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: contain;
     margin: auto 0;
     width: 100%;
     height: 50%;
 }
-.tictac-grid{
+
+.tictac-grid {
     display: flex;
     flex-direction: column;
-    align-self: center;
     width: 100%;
     height: 100vw;
+    margin-top: 10px;
     background-color: rgb(186, 255, 121);
 }
-.tictac-grid-row{
+
+.tictac-grid-row {
     display: flex;
     width: 100%;
     height: calc(100% / 3);
 }
-.tictac-grid-row-field{
+
+.tictac-grid-row-field {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,21 +117,45 @@ body{
     cursor: pointer;
     background-color: #323232;
 }
-.info-turno{
+
+.info-turno {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 5px;
     margin-top: 10px;
     text-align: center;
 }
-.info-turno, #nombreJugador{
+
+.info-turno,
+#nombreJugador {
     letter-spacing: 7px;
 }
-@media(min-width: 524px){
-    .container{
+
+/* PÁGINA DE MENÚ */
+
+@media(min-width: 524px) {
+
+    /* .container{
         width: fit-content;
         margin: 0 auto;
+    } */
+    .box-buttons {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content:space-around;
     }
+    .box-buttons button:hover{
+        background-color: white;
+    }
+
+    #replay, #exit {
+        margin: 0;
+        padding: 20px 0;
+        width: 27%;
+        margin-bottom: 20px;
+    }
+
     .tictac-grid {
         width: 500px;
         height: 500px;
@@ -118,6 +167,7 @@ body{
         width: 550px;
         height: 550px;
     }
+
     #win-screen {
         /* Estilo texto */
         font-size: inherit;
