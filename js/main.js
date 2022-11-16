@@ -4,6 +4,14 @@ let gridGame = [
   [0, 0, 0],
 ];
 let miContainer = document.getElementsByClassName("container");
+let btnSinglePlayer = document.getElementById("btnSinglePlayer");
+let btnDoublePlayer = document.getElementById("btnDoublePlayer");
+let turnText = document.getElementById("turno");
+const fields = document.getElementsByClassName("tictac-grid-row-field");
+let victoryText = document.getElementById("victory-text");
+let winScreen = document.getElementById("win-screen");
+let playerImage = document.getElementById("playerImage");
+
 let players = [
   {
     nombre: "Mario",
@@ -30,11 +38,10 @@ let players = [
 ];
 // Inicializar información al comenzar
 let turn = players[Math.round(Math.random())];
-document.getElementById('turno').innerHTML = `¡Es tu turno, ${turn.nombre}!`;
+turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
 changeGameColor(turn);
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
-const fields = document.getElementsByClassName('tictac-grid-row-field');
 for (let i = 0; i < fields.length; i++) {
   fields[i].id = 'field' + i;
   fields[i].setAttribute('onclick', 'addPiece(event)');
@@ -61,7 +68,7 @@ function addPiece(event) {
 
 function changeTurn(turn) {
   turn == players[0] ? (turn = players[1]) : (turn = players[0]);
-  document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
+  turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   return turn;
 }
 
@@ -153,20 +160,20 @@ function checkVictory(gridGame, turn) {
 }
 
 function showWiningScreen(turn){
-  document.getElementById("victory-text").innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
-  document.getElementById("win-screen").style.backgroundColor = turn.color;
-  document.getElementById('playerImage').style.backgroundImage = `url("${turn.imagen}")`;
-  document.getElementById('win-screen').style.display = 'flex';
+  victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
+  winScreen.style.backgroundColor = turn.color;
+  playerImage.style.backgroundImage = `url("${turn.imagen}")`;
+  winScreen.style.display = 'flex';
   miContainer[0].style.display = "none";
 }
 
 // Es un empate
 function showReplayScreen(){
   miContainer[0].style.display = "none";
-  document.getElementById("victory-text").innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
-  document.getElementById("win-screen").style.backgroundColor = "#abab16";
-  document.getElementById('playerImage').style.backgroundImage = `url('../assets/img/bowser.png')`;
-  document.getElementById('win-screen').style.display = 'flex';
+  victoryText.innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
+  winScreen.style.backgroundColor = "#abab16";
+  playerImage.style.backgroundImage = `url('../assets/img/bowser.png')`;
+  winScreen.style.display = 'flex';
 }
 
 // Para comenzar una partida nueva, reestablecer el tablero a vacío, esconder la pantalla de victoria, mostrar el container de nuevo, establecer un turno a un jugador aleatorio.
@@ -179,10 +186,10 @@ function replay(){
     [0, 0, 0],
     [0, 0, 0],
   ];
-  document.getElementById("win-screen").style.display = "none";
+  winScreen.style.display = "none";
   // miContainer[0].style.display = "flex";
   turn = players[Math.round(Math.random())];
-  document.getElementById("turno").innerHTML = `¡Es tu turno, ${turn.nombre}!`;
+  turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   changeGameColor(turn);
   miContainer[0].style.display = "flex";
 }
