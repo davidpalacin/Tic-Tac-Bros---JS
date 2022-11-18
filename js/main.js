@@ -32,9 +32,10 @@ let players = [
   {
     nombre: "Bowser",
     ficha: "../assets/img/bowsi.svg",
-    imagen: "../assets/img/bowser.svg",
+    imagen:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/bowser.svg",
     color: "yellow",
-  }
+  },
 ];
 // Inicializar información al comenzar
 let turn = players[Math.round(Math.random())];
