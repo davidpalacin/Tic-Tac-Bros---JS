@@ -218,6 +218,10 @@ body {
         height: 500px;
     }
     /* MENU DEL JUEGO */
+    #btnDoublePlayer a, #btnSinglePlayer a{
+        text-decoration: none;
+        color: white;
+    }
 }
 
 @media(min-width: 1000px) {

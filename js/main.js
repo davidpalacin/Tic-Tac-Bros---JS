@@ -3,15 +3,14 @@ let gridGame = [
   [0, 0, 0],
   [0, 0, 0],
 ];
+// Recibir el modo de juego seleccionado desde el menú usando la URL
+let gameMode = window.location.search.substring(10);
 let miContainer = document.getElementsByClassName("container");
-let btnSinglePlayer = document.getElementById("btnSinglePlayer");
-let btnDoublePlayer = document.getElementById("btnDoublePlayer");
 let turnText = document.getElementById("turno");
 const fields = document.getElementsByClassName("tictac-grid-row-field");
 let victoryText = document.getElementById("victory-text");
 let winScreen = document.getElementById("win-screen");
 let playerImage = document.getElementById("playerImage");
-
 let players = [
   {
     nombre: "Mario",
@@ -31,12 +30,14 @@ let players = [
   },
   {
     nombre: "Bowser",
-    ficha: "../assets/img/bowsi.svg",
+    ficha:
+      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/bowser.svg",
     imagen:
       "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/bowser.svg",
     color: "yellow",
   },
 ];
+
 // Inicializar información al comenzar
 let turn = players[Math.round(Math.random())];
 turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
