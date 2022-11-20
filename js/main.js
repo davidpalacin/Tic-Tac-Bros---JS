@@ -48,7 +48,7 @@ if (gameMode === "doublePlayer") {
     {
       nombre: "Bowser",
       ficha:
-        "../assets/img/goomba.png",
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/401efc3ae7dbda241827a589a3d9e75dc202c7fa/assets/img/goomba.png",
       imagen:
         "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/6efc512805d2f6ca0f6067014d0221441d9aee43/assets/img/bowser.png",
       color: "#9a9a00",
@@ -81,26 +81,26 @@ function addPiece(event) {
     updateGridGame(field, turn.ficha); //actualizar matriz de la cuadrícula
     if (checkVictory(gridGame, turn)) {
       showWiningScreen(turn);
-    }
-    if (isGridFull()) {
+    }else if (isGridFull()) {
       showReplayScreen();
-    }
-    turn = changeTurn(turn);
-    changeGameColor(turn);
-    if (turn == players[1] && gameMode == "singlePlayer") {
-      chosed = chooseCpuField();
-      while(document.getElementById(chosed).hasChildNodes()){
-        chosed = chooseCpuField();
-      }
-      putCpuPiece(chosed);
-      if (checkVictory(gridGame, turn)) {
-        showWiningScreen(turn);
-      }
-      if (isGridFull()) {
-        showReplayScreen();
-      }
+    }else{
       turn = changeTurn(turn);
       changeGameColor(turn);
+      if (turn == players[1] && gameMode == "singlePlayer") {
+        chosed = chooseCpuField();
+        while(document.getElementById(chosed).hasChildNodes()){
+          chosed = chooseCpuField();
+        }
+        putCpuPiece(chosed);
+        if (checkVictory(gridGame, turn)) {
+          showWiningScreen(turn);
+        }
+        if (isGridFull()) {
+          showReplayScreen();
+        }
+        turn = changeTurn(turn);
+        changeGameColor(turn);
+    }
     }
   }
 }
@@ -250,6 +250,6 @@ function putCpuPiece(chosed) {
 }
 
 function chooseCpuField() {
-  let generated = Math.floor(Math.random() * (8 - 0)) + 0;
+  let generated = Math.floor(Math.random() * 9);
   return generated;
 }
