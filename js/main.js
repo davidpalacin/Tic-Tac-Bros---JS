@@ -220,7 +220,7 @@ function showReplayScreen() {
   miContainer[0].style.display = "none";
   victoryText.innerHTML = "¡Oops, habéis quedado en tablas! ¿Un desempate?";
   winScreen.style.backgroundColor = "#abab16";
-  playerImage.style.backgroundImage = `url('../assets/img/empate.png')`;
+  playerImage.style.backgroundImage = `url(https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/07621732d02e928e5773eb3b39d8c438d321e174/assets/img/empate.png)`;
   winScreen.style.display = "flex";
 }
 
