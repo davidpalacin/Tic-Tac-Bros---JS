@@ -294,3 +294,7 @@ function chooseCpuField() {
   let generated = Math.floor(Math.random() * 9);
   return generated;
 }
+
+function exit(){
+  location.href = "gameMenu.html";
+}
