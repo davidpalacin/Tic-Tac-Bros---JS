@@ -94,8 +94,7 @@ function addPiece(event) {
         putCpuPiece(chosed);
         if (checkVictory(gridGame, turn)) {
           showWiningScreen(turn);
-        }
-        if (isGridFull()) {
+        }else if (isGridFull()) {
           showReplayScreen();
         }
         turn = changeTurn(turn);
@@ -199,11 +198,19 @@ function checkVictory(gridGame, turn) {
 }
 
 function showWiningScreen(turn) {
-  victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
-  winScreen.style.backgroundColor = turn.color;
-  playerImage.style.backgroundImage = `url("${turn.imagen}")`;
-  winScreen.style.display = "flex";
-  miContainer[0].style.display = "none";
+  if(turn.nombre == "Bowser"){
+    victoryText.innerHTML = `BOWSER HA GANADO!`;
+    winScreen.style.backgroundColor = turn.color;
+    playerImage.style.backgroundImage = `url("${turn.imagen}")`;
+    winScreen.style.display = "flex";
+    miContainer[0].style.display = "none";
+  }else{
+    victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
+    winScreen.style.backgroundColor = turn.color;
+    playerImage.style.backgroundImage = `url("${turn.imagen}")`;
+    winScreen.style.display = "flex";
+    miContainer[0].style.display = "none";
+  }
 }
 
 // Es un empate
@@ -211,7 +218,7 @@ function showReplayScreen() {
   miContainer[0].style.display = "none";
   victoryText.innerHTML = "¡Oops, habéis quedado en tablas! ¿Un desempate?";
   winScreen.style.backgroundColor = "#abab16";
-  playerImage.style.backgroundImage = `url('https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/6efc512805d2f6ca0f6067014d0221441d9aee43/assets/img/bowser.png')`;
+  playerImage.style.backgroundImage = `url('../assets/img/empate.png')`;
   winScreen.style.display = "flex";
 }
 
