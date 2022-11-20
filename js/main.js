@@ -11,42 +11,65 @@ const fields = document.getElementsByClassName("tictac-grid-row-field");
 let victoryText = document.getElementById("victory-text");
 let winScreen = document.getElementById("win-screen");
 let playerImage = document.getElementById("playerImage");
-let players = [
-  {
-    nombre: "Mario",
-    ficha:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/redchampi.png",
-    imagen:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/mario.svg",
-    color: "#c32828",
-  },
-  {
-    nombre: "Luigi",
-    ficha:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/greenchampi.png",
-    imagen:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/luigi.svg",
-    color: "#4fc300",
-  },
-  {
-    nombre: "Bowser",
-    ficha:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/bowser.svg",
-    imagen:
-      "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/bowser.svg",
-    color: "yellow",
-  },
-];
+let cpuField = 0;
+let chosed = 0;
+let players = [];
 
-// Inicializar información al comenzar
+if (gameMode === "doublePlayer") {
+  // JUGADOR CONTRA JUGADOR
+  players = [
+    {
+      nombre: "Mario",
+      ficha:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/redchampi.png",
+      imagen:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/mario.svg",
+      color: "#c32828",
+    },
+    {
+      nombre: "Luigi",
+      ficha:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/greenchampi.png",
+      imagen:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/luigi.svg",
+      color: "#4fc300",
+    },
+  ];
+} else {
+  players = [
+    {
+      nombre: "Mario",
+      ficha:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/0cb02f92ecc4e5e7cf59fca7ce86dcd715a390b3/assets/img/redchampi.png",
+      imagen:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/ccc8939e3c11d63e5187be4d7bc993fb01b0860a/assets/img/mario.svg",
+      color: "#c32828",
+    },
+    {
+      nombre: "Bowser",
+      ficha:
+        "../assets/img/goomba.png",
+      imagen:
+        "https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/6efc512805d2f6ca0f6067014d0221441d9aee43/assets/img/bowser.png",
+      color: "#9a9a00",
+    },
+  ];
+}
 let turn = players[Math.round(Math.random())];
 turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
 changeGameColor(turn);
 
 // AÑADIR EL EVENTO A TODAS LAS CASILLAS
 for (let i = 0; i < fields.length; i++) {
-  fields[i].id = 'field' + i;
-  fields[i].setAttribute('onclick', 'addPiece(event)');
+  fields[i].id = i;
+  fields[i].setAttribute("onclick", "addPiece(event)");
+}
+
+// Desactivo los eventos de las casillas si le toca al cpu
+if (turn == players[1] && gameMode == "singlePlayer") {
+  putCpuPiece(4);
+  turn = changeTurn(turn);
+  changeGameColor(turn);
 }
 
 // AÑADIR FICHA SI LA CASILLA ESTÁ VACÍA, Y PONE FICHA SEGÚN AL JUGADOR QUE LE TOQUE
@@ -54,14 +77,28 @@ function addPiece(event) {
   if (!document.getElementById(event.target.id).hasChildNodes()) {
     const piece = createPiece(turn); // funcion que crea una ficha HTML
     document.getElementById(event.target.id).appendChild(piece);
-    const field = event.target.id.split("field").pop();
+    const field = event.target.id;
     updateGridGame(field, turn.ficha); //actualizar matriz de la cuadrícula
-
     if (checkVictory(gridGame, turn)) {
       showWiningScreen(turn);
-    }else if(isGridFull()){
+    }
+    if (isGridFull()) {
       showReplayScreen();
-    }else{
+    }
+    turn = changeTurn(turn);
+    changeGameColor(turn);
+    if (turn == players[1] && gameMode == "singlePlayer") {
+      chosed = chooseCpuField();
+      while(document.getElementById(chosed).hasChildNodes()){
+        chosed = chooseCpuField();
+      }
+      putCpuPiece(chosed);
+      if (checkVictory(gridGame, turn)) {
+        showWiningScreen(turn);
+      }
+      if (isGridFull()) {
+        showReplayScreen();
+      }
       turn = changeTurn(turn);
       changeGameColor(turn);
     }
@@ -85,9 +122,9 @@ function isGridFull() {
 
 // Crea las piezas recibiendo si tiene que ser X o O
 function createPiece(turn) {
-  const piece = document.createElement('span');
-  piece.className = 'ficha';
-  piece.innerHTML = "<img alt='ficha del jugador' src='"+turn.ficha+"'/>";
+  const piece = document.createElement("span");
+  piece.className = "ficha";
+  piece.innerHTML = "<img alt='ficha del jugador' src='" + turn.ficha + "'/>";
   return piece;
 }
 
@@ -161,27 +198,27 @@ function checkVictory(gridGame, turn) {
   return isWin;
 }
 
-function showWiningScreen(turn){
+function showWiningScreen(turn) {
   victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
   winScreen.style.backgroundColor = turn.color;
   playerImage.style.backgroundImage = `url("${turn.imagen}")`;
-  winScreen.style.display = 'flex';
+  winScreen.style.display = "flex";
   miContainer[0].style.display = "none";
 }
 
 // Es un empate
-function showReplayScreen(){
+function showReplayScreen() {
   miContainer[0].style.display = "none";
-  victoryText.innerHTML = '¡Oops, habéis quedado en tablas! ¿Un desempate?';
+  victoryText.innerHTML = "¡Oops, habéis quedado en tablas! ¿Un desempate?";
   winScreen.style.backgroundColor = "#abab16";
-  playerImage.style.backgroundImage = `url('../assets/img/bowser.png')`;
-  winScreen.style.display = 'flex';
+  playerImage.style.backgroundImage = `url('https://raw.githubusercontent.com/davidpalacin/proyectoSemana3/6efc512805d2f6ca0f6067014d0221441d9aee43/assets/img/bowser.png')`;
+  winScreen.style.display = "flex";
 }
 
 // Para comenzar una partida nueva, reestablecer el tablero a vacío, esconder la pantalla de victoria, mostrar el container de nuevo, establecer un turno a un jugador aleatorio.
-function replay(){
+function replay() {
   for (let i = 0; i < fields.length; i++) {
-    fields[i].innerHTML = '';
+    fields[i].innerHTML = "";
   }
   gridGame = [
     [0, 0, 0],
@@ -194,8 +231,25 @@ function replay(){
   turnText.innerHTML = `¡Es tu turno, ${turn.nombre}!`;
   changeGameColor(turn);
   miContainer[0].style.display = "flex";
+   if (turn == players[1] && gameMode == "singlePlayer") {
+     putCpuPiece(4);
+     turn = changeTurn(turn);
+     changeGameColor(turn);
+   }
 }
 
-function changeGameColor(turn){
+function changeGameColor(turn) {
   miContainer[0].style.backgroundColor = turn.color;
+}
+
+function putCpuPiece(chosed) {
+  console.log(`se ha elegido en: ${chosed}`);
+  const piece = createPiece(turn);
+  document.getElementById(chosed).appendChild(piece);
+  updateGridGame(chosed, turn.ficha);
+}
+
+function chooseCpuField() {
+  let generated = Math.floor(Math.random() * (8 - 0)) + 0;
+  return generated;
 }
