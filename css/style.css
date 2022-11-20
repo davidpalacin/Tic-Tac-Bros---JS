@@ -17,7 +17,15 @@ body {
 .flex {
     display: flex;
 }
-
+#muteIcon {
+    color: white;
+    font-size: 25px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    position: absolute;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -184,7 +192,10 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    
+    transition: all 0.3s ease-in-out;
+}
+.box-menu-buttons button:hover{
+    transform: scale(1.1);
 }
 .menu-button:last-child{
     margin-top: 15px;
@@ -202,6 +213,10 @@ body {
         flex-direction: row;
         justify-content:space-around;
     }
+    #muteIcon:hover{
+        margin-left: 15px;
+    }
+
     .box-buttons button:hover{
         background-color: white;
     }

@@ -5,18 +5,25 @@ let gridGame = [
 ];
 // Recibir el modo de juego seleccionado desde el menú usando la URL
 let gameMode = window.location.search.substring(10);
+let mute = document.getElementById("muteIcon");
 let miContainer = document.getElementsByClassName("container");
 let turnText = document.getElementById("turno");
 const fields = document.getElementsByClassName("tictac-grid-row-field");
 let victoryText = document.getElementById("victory-text");
 let winScreen = document.getElementById("win-screen");
 let playerImage = document.getElementById("playerImage");
-let cpuField = 0;
 let chosed = 0;
 let players = [];
 
 if (gameMode === "doublePlayer") {
   document.getElementById("chillMusic").play();
+  mute.addEventListener("click", () => {
+    if (document.getElementById("chillMusic").paused) {
+      document.getElementById("chillMusic").play();
+    } else {
+      document.getElementById("chillMusic").pause();
+    }
+  });
   // JUGADOR CONTRA JUGADOR
   players = [
     {
@@ -38,6 +45,13 @@ if (gameMode === "doublePlayer") {
   ];
 } else {
   document.getElementById("caveTheme").play();
+  mute.addEventListener("click", () => {
+    if (document.getElementById("caveTheme").paused) {
+      document.getElementById("caveTheme").play();
+    } else {
+      document.getElementById("caveTheme").pause();
+    }
+  });
   players = [
     {
       nombre: "Mario",
@@ -201,12 +215,16 @@ function checkVictory(gridGame, turn) {
 
 function showWiningScreen(turn) {
   if(turn.nombre == "Bowser"){
+    document.getElementById("caveTheme").pause();
+    document.getElementById("laugh").play();
     victoryText.innerHTML = `¡BOWSER HA GANADO!`;
     winScreen.style.backgroundColor = turn.color;
     playerImage.style.backgroundImage = `url("${turn.imagen}")`;
     winScreen.style.display = "flex";
     miContainer[0].style.display = "none";
   }else{
+    document.getElementById("chillMusic").pause();
+    document.getElementById("marioWin").play();
     victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
     winScreen.style.backgroundColor = turn.color;
     playerImage.style.backgroundImage = `url("${turn.imagen}")`;
@@ -226,6 +244,20 @@ function showReplayScreen() {
 
 // Para comenzar una partida nueva, reestablecer el tablero a vacío, esconder la pantalla de victoria, mostrar el container de nuevo, establecer un turno a un jugador aleatorio.
 function replay() {
+  let audios = document.getElementsByTagName("audio");
+  Array.from(audios).forEach(audio => {
+    audio.pause();
+  });
+
+  if(gameMode == "singlePlayer"){
+    document.getElementById("caveTheme").load();
+    document.getElementById("caveTheme").play();
+  }
+  if(gameMode == "doublePlayer"){
+    document.getElementById("chillMusic").load();
+    document.getElementById("chillMusic").play();
+  }
+
   for (let i = 0; i < fields.length; i++) {
     fields[i].innerHTML = "";
   }

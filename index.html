@@ -13,6 +13,8 @@
 <body>
     <audio id="chillMusic" src="assets/audio/chillMusic.mp3"></audio>
     <audio id="caveTheme" src="assets/audio/caveTheme.mp3"></audio>
+    <audio id="laugh" src="assets/audio/laugh.mp3"></audio>
+    <audio src="assets/audio/marioWin.mp3" id="marioWin"></audio>
     <div id="win-screen">
         <h1 id="victory-text"></h1>
         <div id="playerImage"></div>
@@ -23,6 +25,7 @@
     </div>
 
     <main class="container">
+        <i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
         <h3 id="turno" class="info-turno"></h3>
         <div class="tictac-grid">
             <div class="tictac-grid-row">
@@ -44,7 +47,7 @@
             </div>
         </div>
     </main>
-
+    <script src="https://kit.fontawesome.com/34bb39287d.js" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
