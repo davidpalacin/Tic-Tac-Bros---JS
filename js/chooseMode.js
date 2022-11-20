@@ -8,3 +8,4 @@ btnSinglePlayer.addEventListener("click", () => {
 btnDoublePlayer.addEventListener("click", () => {
   location.href = "../index.html?gameMode=doublePlayer";
 });
+document.getElementById("themeSong").play();

@@ -16,6 +16,8 @@ let chosed = 0;
 let players = [];
 
 if (gameMode === "doublePlayer") {
+  let audio = new Audio("../assets/audio/chillMusic.mp3");
+  audio.play();
   // JUGADOR CONTRA JUGADOR
   players = [
     {
@@ -36,6 +38,8 @@ if (gameMode === "doublePlayer") {
     },
   ];
 } else {
+  let audio = new Audio("../assets/audio/caveTheme.mp3");
+  audio.play();
   players = [
     {
       nombre: "Mario",
@@ -199,7 +203,7 @@ function checkVictory(gridGame, turn) {
 
 function showWiningScreen(turn) {
   if(turn.nombre == "Bowser"){
-    victoryText.innerHTML = `BOWSER HA GANADO!`;
+    victoryText.innerHTML = `¡BOWSER HA GANADO!`;
     winScreen.style.backgroundColor = turn.color;
     playerImage.style.backgroundImage = `url("${turn.imagen}")`;
     winScreen.style.display = "flex";
