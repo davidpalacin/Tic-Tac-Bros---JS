@@ -16,8 +16,7 @@ let chosed = 0;
 let players = [];
 
 if (gameMode === "doublePlayer") {
-  let audio = new Audio("../assets/audio/chillMusic.mp3");
-  audio.play();
+  document.getElementById("chillMusic").play();
   // JUGADOR CONTRA JUGADOR
   players = [
     {
@@ -38,8 +37,7 @@ if (gameMode === "doublePlayer") {
     },
   ];
 } else {
-  let audio = new Audio("../assets/audio/caveTheme.mp3");
-  audio.play();
+  document.getElementById("caveTheme").play();
   players = [
     {
       nombre: "Mario",

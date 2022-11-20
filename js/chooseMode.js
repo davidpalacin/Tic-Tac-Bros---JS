@@ -3,9 +3,9 @@ btnSinglePlayer = document.getElementById("btnSinglePlayer");
 btnDoublePlayer = document.getElementById("btnDoublePlayer");
 
 btnSinglePlayer.addEventListener("click", () => {
-  location.href = "../index.html?gameMode=singlePlayer";
+  location.href = "index.html?gameMode=singlePlayer";
 });
 btnDoublePlayer.addEventListener("click", () => {
-  location.href = "../index.html?gameMode=doublePlayer";
+  location.href = "index.html?gameMode=doublePlayer";
 });
 document.getElementById("themeSong").play();
