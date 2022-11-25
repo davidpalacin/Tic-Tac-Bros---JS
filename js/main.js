@@ -255,6 +255,7 @@ function showReplayScreen() {
 function replay() {
   let audios = document.getElementsByTagName("audio");
   Array.from(audios).forEach(audio => {
+    audio.currentTime = 0;
     audio.pause();
   });
 
