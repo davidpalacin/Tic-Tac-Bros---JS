@@ -214,7 +214,7 @@ function checkVictory(gridGame, turn) {
 }
 
 function showWiningScreen(turn) {
-  if(turn.nombre == "Bowser"){
+  if(turn.nombre == "Bowser" && gameMode == "singlePlayer"){
     document.getElementById("caveTheme").pause();
     document.getElementById("laugh").play();
     victoryText.innerHTML = `¡BOWSER HA GANADO!`;
@@ -222,7 +222,16 @@ function showWiningScreen(turn) {
     playerImage.style.backgroundImage = `url("${turn.imagen}")`;
     winScreen.style.display = "flex";
     miContainer[0].style.display = "none";
-  }else{
+  }else if(gameMode =="singlePlayer"){
+    document.getElementById("caveTheme").pause();
+    document.getElementById("marioWin").play();
+    victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
+    winScreen.style.backgroundColor = turn.color;
+    playerImage.style.backgroundImage = `url("${turn.imagen}")`;
+    winScreen.style.display = "flex";
+    miContainer[0].style.display = "none";
+  }
+  else{
     document.getElementById("chillMusic").pause();
     document.getElementById("marioWin").play();
     victoryText.innerHTML = `¡Enhorabuena, ${turn.nombre}!`;
